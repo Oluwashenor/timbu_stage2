@@ -1,16 +1,6 @@
 # timbu_stage2
 
-A new Flutter project.
+The App uses the Timbu API for fetching Products 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Appetize URL - https://appetize.io/app/b_66smlognhx3cpvamkkasdbww2y
+build\app\outputs\flutter-apk\app-arm64-v8a-release.apk

@@ -75,14 +75,13 @@ class _ProductsState extends State<Products> {
   Network network = Network();
   List<Product> products = [];
 
-  Future<void> fetchProducts() async {
+  Future<List<Product>> fetchProducts() async {
     try {
       List<Product> ps = await network.fetchProducts();
-      setState(() {
-        products = ps;
-      });
+      return ps;
     } catch (ex) {
       print(ex);
+      return [];
     }
   }
 
@@ -94,11 +93,31 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ProductWidget(product: products[index], index: index);
-        });
+    return FutureBuilder(
+      future: fetchProducts(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(
+            child: Text('No data available'),
+          );
+        } else {
+          return ListView.builder(
+              itemCount: snapshot.data?.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ProductWidget(
+                    product: snapshot.data![index], index: index);
+              });
+        }
+      },
+    );
   }
 }
 
